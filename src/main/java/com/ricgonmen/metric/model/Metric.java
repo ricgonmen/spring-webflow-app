@@ -49,7 +49,7 @@ public class Metric {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", time-stamp='" + timeStamp.toString() + '\'' +
-                ", price=" + value +
+                ", value=" + value +
                 '}';
     }
 

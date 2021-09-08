@@ -9,15 +9,23 @@
 		<version>2.5.3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.wiredbraincoffee</groupId>
-	<artifactId>product-api-functional</artifactId>
+	<groupId>com.ricgonmen</groupId>
+	<artifactId>spring-webflux-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>product-api-functional</name>
-	<description>Demo project for Spring Boot</description>
+	<name>spring-webflux-app</name>
+	<description>Demo project for Spring Boot WebFlux App</description>
 	<properties>
 		<java.version>11</java.version>
+		<maven.compiler.source>11</maven.compiler.source>
+    	<maven.compiler.target>11</maven.compiler.target>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
@@ -30,7 +38,6 @@
 			<groupId>de.flapdoodle.embed</groupId>
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

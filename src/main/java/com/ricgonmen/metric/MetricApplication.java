@@ -15,7 +15,6 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.http.MediaType.TEXT_EVENT_STREAM;
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
@@ -30,24 +29,24 @@ public class MetricApplication {
 	@Bean
 	CommandLineRunner init(ReactiveMongoOperations operations, MetricRepository repository) {
 		return args -> {
-			Flux<Metric> productFlux = Flux.just(
+			Flux<Metric> metricFlux = Flux.just(
 							new Metric("TEMPERATURE", 24.9),
 							new Metric("TEMPERATURE", 21.4),
 							new Metric("TEMPERATURE", 11.9))
 					.flatMap(repository::save);
-
-			productFlux
-					.thenMany(repository.findAll())
-					.subscribe(System.out::println);
+			
+			metricFlux
+					.thenMany(repository.findAll()) // Espera por el anterior publisher
+					.subscribe(System.out::println); // Imprime */			
 		};
 	}
 
 	@Bean
 	RouterFunction<ServerResponse> routes(MetricHandler handler) {
 		return route()
-				.path("/products",
+				.path("/metrics",
 						builder -> builder
-								.nest(accept(APPLICATION_JSON).or(contentType(APPLICATION_JSON)).or(accept(TEXT_EVENT_STREAM)),
+								.nest(accept(APPLICATION_JSON).or(contentType(APPLICATION_JSON)),
 										nestedBuilder -> nestedBuilder
 												.GET("/{id}", handler::getMetric)
 												.GET(handler::getAllMetrics)
